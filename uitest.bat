@@ -12,7 +12,7 @@ echo    Running Selenium UI Tests
 echo    ========================================
 echo.
 
-echo [INFO] Requirements: Chrome browser + chromedriver in PATH
+echo [INFO] Using HtmlUnit headless browser - no Chrome/chromedriver required
 echo [INFO] Please start the server first (start.bat)
 echo.
 
