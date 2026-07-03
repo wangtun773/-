@@ -1,0 +1,87 @@
+/* 全局样式 */
+body {
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    background-color: #f8f9fa;
+}
+
+.main-content {
+    min-height: calc(100vh - 200px);
+    padding-bottom: 2rem;
+}
+
+/* 导航栏 */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,.08);
+}
+
+/* 卡片样式 */
+.card {
+    border: 1px solid rgba(0,0,0,.08);
+    transition: transform .2s, box-shadow .2s;
+}
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,.12);
+}
+
+.product-card {
+    height: 100%;
+}
+.product-card .card-img-top {
+    height: 200px;
+    object-fit: contain;
+    padding: 1rem;
+    background: #f8f9fa;
+}
+.product-card .card-title {
+    font-size: 1rem;
+    line-height: 1.4;
+    height: 2.8em;
+    overflow: hidden;
+}
+.price-text {
+    font-size: 1.25rem;
+    color: #e4393c;
+    font-weight: bold;
+}
+
+/* 购物车 */
+.cart-table img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+/* 页脚 */
+.footer {
+    background-color: #f1f3f5 !important;
+    font-size: 0.875rem;
+}
+
+/* 订单状态标签 */
+.status-badge {
+    font-size: 0.85rem;
+}
+.status-PENDING_PAYMENT { background-color: #ffc107; color: #212529; }
+.status-PAID { background-color: #17a2b8; color: #fff; }
+.status-SHIPPED { background-color: #007bff; color: #fff; }
+.status-COMPLETED { background-color: #28a745; color: #fff; }
+.status-CANCELLED { background-color: #6c757d; color: #fff; }
+
+/* 搜索框 */
+.search-box {
+    max-width: 400px;
+}
+
+/* 管理后台表格 */
+.admin-table th {
+    background-color: #f8f9fa;
+}
+
+/* 表单验证样式 */
+.form-control.is-invalid {
+    border-color: #dc3545;
+}
+.invalid-feedback {
+    display: block;
+}

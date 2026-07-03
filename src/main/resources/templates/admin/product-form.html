@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head(title=${(product != null ? '编辑商品' : '新增商品') + ' - 在线购物平台'})}"></head>
+<body>
+    <div th:replace="layout :: nav"></div>
+    <div th:replace="layout :: alerts"></div>
+
+    <div class="container mt-4">
+        <h3 th:text="${product != null} ? '编辑商品' : '新增商品'">新增商品</h3>
+        <hr>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <form th:action="${product != null} ? @{/admin/product/edit/{id}(id=${product.id})} : @{/admin/product/add}"
+                              method="post">
+                            <div class="mb-3">
+                                <label class="form-label">商品名称 *</label>
+                                <input type="text" name="name" class="form-control"
+                                       placeholder="2-50个字符，支持中英文、数字"
+                                       th:value="${product != null ? product.name : ''}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">商品描述 *</label>
+                                <textarea name="description" class="form-control" rows="4"
+                                       placeholder="10-500个字符" required
+                                       th:text="${product != null ? product.description : ''}"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">商品价格 *</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">¥</span>
+                                    <input type="number" step="0.01" name="price" class="form-control"
+                                           placeholder="0.01 - 999999.99" min="0.01" max="999999.99"
+                                           th:value="${product != null ? product.price : ''}" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">库存数量 *</label>
+                                <input type="number" name="stock" class="form-control"
+                                       placeholder="0 - 99999" min="0" max="99999"
+                                       th:value="${product != null ? product.stock : ''}" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" th:text="${product != null} ? '保存修改' : '确认上架'">确认上架</button>
+                            <a th:href="@{/admin/products}" class="btn btn-outline-secondary ms-2">返回</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="layout :: footer"></div>
+    <div th:replace="layout :: scripts"></div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('个人信息 - 在线购物平台')}"></head>
+<body>
+    <div th:replace="layout :: nav"></div>
+    <div th:replace="layout :: alerts"></div>
+
+    <div class="container mt-4">
+        <h3><i class="bi bi-person-gear"></i> 个人信息</h3>
+        <hr>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <form th:action="@{/profile/update}" method="post">
+                            <div class="mb-3">
+                                <label class="form-label">用户名</label>
+                                <input type="text" class="form-control" th:value="${sessionUser.username}" readonly disabled>
+                                <div class="form-text">用户名注册后不可修改</div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">角色</label>
+                                <input type="text" class="form-control" th:value="${sessionUser.role}" readonly disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">手机号</label>
+                                <input type="text" name="phone" class="form-control"
+                                       placeholder="11位手机号，以13-19开头"
+                                       th:value="${profile != null ? profile.phone : ''}">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">邮箱</label>
+                                <input type="email" name="email" class="form-control"
+                                       placeholder="请输入邮箱地址"
+                                       th:value="${profile != null ? profile.email : ''}">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">地址</label>
+                                <textarea name="address" class="form-control" rows="3"
+                                       placeholder="10-100个字符"
+                                       th:text="${profile != null ? profile.address : ''}"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">保存修改</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="layout :: footer"></div>
+    <div th:replace="layout :: scripts"></div>
+</body>
+</html>

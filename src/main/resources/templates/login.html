@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('登录 - 在线购物平台')}"></head>
+<body class="bg-light">
+    <div th:replace="layout :: nav"></div>
+    <div th:replace="layout :: alerts"></div>
+
+    <div class="container" style="padding-top: 80px;">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card shadow-sm">
+                    <div class="card-body p-5">
+                        <h3 class="text-center mb-4">用户登录</h3>
+                        <form th:action="@{/user/doLogin}" method="post">
+                            <div class="mb-3">
+                                <label class="form-label">用户名</label>
+                                <input type="text" name="username" class="form-control"
+                                       placeholder="请输入用户名" required
+                                       th:value="${loginUsername}">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">密码</label>
+                                <input type="password" name="password" class="form-control"
+                                       placeholder="请输入密码" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 btn-lg">登录</button>
+                        </form>
+                        <hr>
+                        <p class="text-center mb-0">
+                            还没有账号？<a th:href="@{/register}">立即注册</a>
+                        </p>
+                    </div>
+                </div>
+                <!-- 测试账号提示 -->
+                <div class="card mt-3 bg-light border-0">
+                    <div class="card-body text-muted small">
+                        <strong>测试账号：</strong><br>
+                        管理员：admin / Admin@123<br>
+                        普通用户：testuser / Test@123
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="layout :: footer"></div>
+    <div th:replace="layout :: scripts"></div>
+</body>
+</html>
