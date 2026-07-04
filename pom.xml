@@ -73,9 +73,15 @@
             <artifactId>selenium-java</artifactId>
             <version>4.19.1</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium</groupId>
+                    <artifactId>htmlunit-driver</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
-        <!-- HtmlUnit Driver (for Selenium headless testing) -->
+        <!-- Selenium HtmlUnit3 Driver (HtmlUnit 4.x, 无头浏览器测试) -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>htmlunit3-driver</artifactId>

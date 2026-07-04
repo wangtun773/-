@@ -9,6 +9,8 @@ import org.htmlunit.WebClient;
 import org.htmlunit.WebRequest;
 import org.htmlunit.util.NameValuePair;
 import org.htmlunit.HttpMethod;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
 
 import java.net.URL;
 import java.time.Duration;
@@ -19,35 +21,48 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Selenium UI 自动化测试（HtmlUnit 无头模式）
  * 覆盖核心购物流程：登录 → 搜索 → 加购物车 → 结算
- *
- * 运行前请确保系统已启动在 http://localhost:9090
+ * 使用 Spring Boot 内嵌服务器，无需手动启动
  */
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SeleniumUITest {
 
+    @LocalServerPort
+    private int port;
+
     private static WebDriver driver;
     private static WebDriverWait wait;
-    private static final String BASE_URL = "http://localhost:9090";
+    private static String BASE_URL;
     private static final String COURSE_IDENTIFIER = "软件质量与测试课 2025-2026-2 学期";
     private static final String TEST_USERNAME = "testuser";
     private static final String TEST_PASSWORD = "Test@123";
 
     @BeforeAll
     static void setUp() {
-        driver = new HtmlUnitDriver(true) {
-            @Override
-            protected WebClient modifyWebClient(WebClient client) {
-                client.getOptions().setThrowExceptionOnScriptError(false);
-                client.getOptions().setThrowExceptionOnFailingStatusCode(false);
-                client.getOptions().setCssEnabled(false);
-                return client;
-            }
-        };
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        // BASE_URL will be set in @BeforeEach initUrl
+    }
 
-        // 使用 HtmlUnit 原生 API 直接登录
-        doUserLogin();
+    @BeforeEach
+    void initUrl() {
+        if (BASE_URL == null) {
+            BASE_URL = "http://localhost:" + port;
+        }
+        if (driver == null) {
+            driver = new HtmlUnitDriver(true) {
+                @Override
+                protected WebClient modifyWebClient(WebClient client) {
+                    client.getOptions().setThrowExceptionOnScriptError(false);
+                    client.getOptions().setThrowExceptionOnFailingStatusCode(false);
+                    client.getOptions().setCssEnabled(false);
+                    return client;
+                }
+            };
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+            wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+            // 使用 HtmlUnit 原生 API 直接登录
+            doUserLogin();
+        }
     }
 
     private static void doUserLogin() {
