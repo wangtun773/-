@@ -47,7 +47,7 @@ public class AdminSeleniumUITest {
     }
 
     @BeforeEach
-    void initUrl() {
+    synchronized void initUrl() {
         if (BASE_URL == null) {
             BASE_URL = "http://localhost:" + port;
         }
@@ -73,6 +73,8 @@ public class AdminSeleniumUITest {
         try {
             HtmlUnitDriver htmlUnitDriver = (HtmlUnitDriver) driver;
             WebClient webClient = htmlUnitDriver.getWebClient();
+            // 让 WebClient 跟随重定向，避免 302 异常
+            webClient.getOptions().setRedirectEnabled(true);
             WebRequest request = new WebRequest(new URL(BASE_URL + "/user/doLogin"), HttpMethod.POST);
             request.setRequestParameters(Arrays.asList(
                     new NameValuePair("username", ADMIN_USERNAME),

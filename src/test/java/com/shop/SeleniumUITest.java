@@ -43,7 +43,7 @@ public class SeleniumUITest {
     }
 
     @BeforeEach
-    void initUrl() {
+    synchronized void initUrl() {
         if (BASE_URL == null) {
             BASE_URL = "http://localhost:" + port;
         }
@@ -69,6 +69,8 @@ public class SeleniumUITest {
         try {
             HtmlUnitDriver htmlUnitDriver = (HtmlUnitDriver) driver;
             WebClient webClient = htmlUnitDriver.getWebClient();
+            // 让 WebClient 跟随重定向，避免 302 异常
+            webClient.getOptions().setRedirectEnabled(true);
             WebRequest request = new WebRequest(new URL(BASE_URL + "/user/doLogin"), HttpMethod.POST);
             request.setRequestParameters(Arrays.asList(
                     new NameValuePair("username", TEST_USERNAME),
@@ -90,7 +92,7 @@ public class SeleniumUITest {
     @Order(1)
     @DisplayName("UI-01: 登录页面加载及课程标识检查")
     void testLoginPageLoadAndCourseIdentifier() {
-        // 先退出登录再访问登录页
+        // 先退出登录再访问登录页，确保看到登录表单
         driver.get(BASE_URL + "/logout");
         driver.get(BASE_URL + "/login");
 

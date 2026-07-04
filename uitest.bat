@@ -55,7 +55,7 @@ echo    Running Selenium UI Tests
 echo    ========================================
 echo.
 echo [INFO] Using HtmlUnit headless browser - no Chrome/chromedriver required
-echo [INFO] Please start the server first (run.bat)
+echo [INFO] UI tests use embedded server (RANDOM_PORT) - no need to start run.bat
 echo.
 
 call mvnw.cmd test -Dtest="SeleniumUITest,AdminSeleniumUITest"
