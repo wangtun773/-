@@ -1,4 +1,4 @@
-﻿package com.shop;
+package com.shop;
 
 import com.shop.model.OrderItem;
 import com.shop.service.*;
