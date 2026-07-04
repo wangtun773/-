@@ -74,6 +74,14 @@
             <version>4.19.1</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- HtmlUnit Driver (for Selenium headless testing) -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>htmlunit3-driver</artifactId>
+            <version>4.19.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
