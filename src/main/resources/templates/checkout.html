@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('结算 - 在线购物平台')}"></head>
+<body>
+    <div th:replace="layout :: nav"></div>
+    <div th:replace="layout :: alerts"></div>
+
+    <div class="container mt-4">
+        <h3><i class="bi bi-credit-card"></i> 订单结算</h3>
+        <hr>
+
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-header"><h5 class="mb-0">收货信息</h5></div>
+                    <div class="card-body">
+                        <form th:action="@{/order/submit}" method="post" id="checkoutForm">
+                            <div class="mb-3">
+                                <label class="form-label">收货人姓名 *</label>
+                                <input type="text" name="receiverName" class="form-control"
+                                       placeholder="2-20个字符，仅限中文或英文字母"
+                                       th:value="${sessionUser.username}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">联系电话 *</label>
+                                <input type="text" name="phone" class="form-control"
+                                       placeholder="11位手机号，以13-19开头"
+                                       th:value="${sessionUser.phone}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">详细地址 *</label>
+                                <textarea name="address" class="form-control" rows="3"
+                                       placeholder="10-100个字符" required
+                                       th:text="${sessionUser.address}"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-danger btn-lg w-100">
+                                <i class="bi bi-check-lg"></i> 提交订单
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="card bg-light">
+                    <div class="card-header"><h5 class="mb-0">订单说明</h5></div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <li><i class="bi bi-info-circle text-primary"></i> 提交订单后，请前往"我的订单"查看</li>
+                            <li class="mt-2"><i class="bi bi-info-circle text-primary"></i> 管理员确认后即可进行付款</li>
+                            <li class="mt-2"><i class="bi bi-info-circle text-primary"></i> 待付款订单3天内未付款将自动取消</li>
+                            <li class="mt-2"><i class="bi bi-info-circle text-primary"></i> 本平台为模拟支付，点击付款即完成</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="layout :: footer"></div>
+    <div th:replace="layout :: scripts"></div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('注册 - 在线购物平台')}"></head>
+<body class="bg-light">
+    <div th:replace="layout :: nav"></div>
+    <div th:replace="layout :: alerts"></div>
+
+    <div class="container" style="padding-top: 60px;">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body p-5">
+                        <h3 class="text-center mb-4">用户注册</h3>
+                        <form th:action="@{/user/doRegister}" method="post" id="registerForm">
+                            <div class="mb-3">
+                                <label class="form-label">用户名</label>
+                                <input type="text" name="username" id="username" class="form-control"
+                                       placeholder="6-20个字符，以字母开头，仅允许字母数字下划线"
+                                       th:value="${regUsername}" required>
+                                <div class="form-text">6-20个字符，以字母开头，仅允许英文字母、数字和下划线</div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">密码</label>
+                                <input type="password" name="password" id="password" class="form-control"
+                                       placeholder="8-16个字符，需包含大小写字母、数字和特殊字符" required>
+                                <div class="form-text">8-16个字符，必须包含至少一个大写字母、一个小写字母、一个数字和一个特殊字符(@#$%^&*)</div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">确认密码</label>
+                                <input type="password" name="confirmPassword" id="confirmPassword" class="form-control"
+                                       placeholder="请再次输入密码" required>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100 btn-lg">提交注册</button>
+                        </form>
+                        <hr>
+                        <p class="text-center mb-0">
+                            已有账号？<a th:href="@{/login}">返回登录</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="layout :: footer"></div>
+    <div th:replace="layout :: scripts"></div>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            var pwd = document.getElementById('password').value;
+            var confirmPwd = document.getElementById('confirmPassword').value;
+            if (pwd !== confirmPwd) {
+                e.preventDefault();
+                alert('两次输入的密码不一致');
+            }
+        });
+    </script>
+</body>
+</html>

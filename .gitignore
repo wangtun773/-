@@ -1,0 +1,20 @@
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+
+# H2 Database
+data/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

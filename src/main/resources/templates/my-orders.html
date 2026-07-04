@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('我的订单 - 在线购物平台')}"></head>
+<body>
+    <div th:replace="layout :: nav"></div>
+    <div th:replace="layout :: alerts"></div>
+
+    <div class="container mt-4">
+        <h3><i class="bi bi-list-ul"></i> 我的订单</h3>
+        <hr>
+
+        <div th:if="${orders != null and !orders.isEmpty()}">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>订单编号</th>
+                            <th>下单时间</th>
+                            <th>总金额</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="order : ${orders}">
+                            <td><a th:href="@{/order/detail/{no}(no=${order.orderNo})}"
+                                   th:text="${order.orderNo}">ORD</a></td>
+                            <td th:text="${#temporals.format(order.createTime, 'yyyy-MM-dd HH:mm:ss')}">时间</td>
+                            <td class="text-danger fw-bold" th:text="'¥' + ${order.totalAmount}">¥0.00</td>
+                            <td>
+                                <span class="badge status-badge"
+                                      th:classappend="'status-' + ${order.status}"
+                                      th:switch="${order.status}">
+                                    <span th:case="'PENDING_PAYMENT'">待付款</span>
+                                    <span th:case="'PAID'">已付款</span>
+                                    <span th:case="'SHIPPED'">已发货</span>
+                                    <span th:case="'COMPLETED'">已完成</span>
+                                    <span th:case="'CANCELLED'">已取消</span>
+                                </span>
+                            </td>
+                            <td>
+                                <a th:href="@{/order/detail/{no}(no=${order.orderNo})}"
+                                   class="btn btn-sm btn-outline-primary">查看详情</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div th:if="${orders == null or orders.isEmpty()}" class="text-center py-5">
+            <i class="bi bi-inbox" style="font-size: 5rem; color: #ccc;"></i>
+            <h4 class="text-muted mt-3">暂无订单</h4>
+            <a th:href="@{/product/list}" class="btn btn-primary mt-2">去购物</a>
+        </div>
+    </div>
+
+    <div th:replace="layout :: footer"></div>
+    <div th:replace="layout :: scripts"></div>
+</body>
+</html>
