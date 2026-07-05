@@ -39,8 +39,6 @@ public class RegisterLoginUITest {
 
     @BeforeAll
     static void setUp() {
-        System.setProperty("webdriver.chrome.driver",
-            "C:\\Users\\小意\\AppData\\Local\\Temp\\chromedriver\\chromedriver-win64\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--headless=new");
