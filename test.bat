@@ -31,14 +31,16 @@ pause
 goto :eof
 
 :check_ver
+set "VER="
+set "MAJOR="
 "%~1" -version >nul 2>&1
 if errorlevel 1 goto :eof
 for /f "tokens=1,2,3*" %%a in ('"%~1" -version 2^>^&1') do (
     if "%%b"=="version" if not defined VER set "VER=%%~c"
 )
 if not defined VER goto :eof
-for /f "tokens=1 delims=." %%m in ("%VER%") do set "MAJOR=%%m"
-if %MAJOR% geq 17 (
+for /f "tokens=1 delims=." %%m in ("!VER!") do set "MAJOR=%%m"
+if !MAJOR! geq 17 (
     set "JDK=%~3"
     echo [INFO] Using JDK %VER% from %~2
 ) else (
