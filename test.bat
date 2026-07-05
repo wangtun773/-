@@ -55,6 +55,8 @@ echo    Running Unit Tests
 echo    ========================================
 echo.
 echo [INFO] Close running server first to avoid DB conflict
+echo [INFO] Cleaning Maven status cache to avoid corruption...
+if exist "target\maven-status" rmdir /s /q "target\maven-status"
 echo [INFO] Running JUnit tests...
 echo.
 

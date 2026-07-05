@@ -56,6 +56,8 @@ echo    ========================================
 echo.
 echo [INFO] Using HtmlUnit headless browser - no Chrome/chromedriver required
 echo [INFO] UI tests use embedded server (RANDOM_PORT) - no need to start run.bat
+echo [INFO] Cleaning Maven status cache to avoid corruption...
+if exist "target\maven-status" rmdir /s /q "target\maven-status"
 echo.
 
 call mvnw.cmd test -Dtest="SeleniumUITest,AdminSeleniumUITest"
